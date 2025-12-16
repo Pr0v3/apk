@@ -27,6 +27,7 @@ export default function Index() {
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [loadingTimeout, setLoadingTimeout] = useState<NodeJS.Timeout | null>(null);
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
