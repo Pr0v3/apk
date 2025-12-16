@@ -85,12 +85,32 @@ export default function Index() {
   const handleLoadStart = () => {
     setIsLoading(true);
     setError(null);
+    
+    // Clear any existing timeout
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+    }
+    
+    // Set a timeout to force-stop loading after 30 seconds
+    const timeout = setTimeout(() => {
+      console.log('Loading timeout - forcing load complete');
+      setIsLoading(false);
+      setRefreshing(false);
+    }, 30000); // 30 seconds timeout
+    
+    setLoadingTimeout(timeout);
   };
 
   // Handle load end
   const handleLoadEnd = () => {
     setIsLoading(false);
     setRefreshing(false);
+    
+    // Clear the timeout since loading completed
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+      setLoadingTimeout(null);
+    }
   };
 
   // Handle load progress
