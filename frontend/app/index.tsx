@@ -224,6 +224,25 @@ export default function Index() {
         androidLayerType="hardware"
         // iOS specific
         allowsLinkPreview={false}
+        // Mixed content mode for Android (allow HTTPS and HTTP)
+        mixedContentMode="always"
+        // Additional props to help with loading
+        originWhitelist={['*']}
+        thirdPartyCookiesEnabled={true}
+        sharedCookiesEnabled={true}
+        // Inject JavaScript to help detect when page is fully loaded
+        injectedJavaScript={`
+          // Force trigger load complete event
+          window.addEventListener('load', function() {
+            console.log('Page fully loaded');
+          });
+          
+          // Additional check for readyState
+          if (document.readyState === 'complete') {
+            console.log('Document ready');
+          }
+          true;
+        `}
       />
 
       {/* Error Display */}
