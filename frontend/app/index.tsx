@@ -125,6 +125,14 @@ export default function Index() {
   // Handle load progress
   const handleLoadProgress = ({ nativeEvent }: any) => {
     setLoadingProgress(nativeEvent.progress);
+    
+    // If progress reaches 100%, ensure loading state is cleared
+    if (nativeEvent.progress === 1) {
+      setTimeout(() => {
+        setIsLoading(false);
+        setRefreshing(false);
+      }, 1000); // Give 1 second for final rendering
+    }
   };
 
   // Handle error
