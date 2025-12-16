@@ -80,9 +80,10 @@ export default function Index() {
     setCurrentUrl(navState.url);
   };
 
-  // Handle should start load - prevent loading unauthorized URLs
+  // Handle should start load - allow navigation within the same domain
   const handleShouldStartLoad = (request: any): boolean => {
     const { url } = request;
+    // Allow all navigation within the same domain
     return isUrlAllowed(url);
   };
 
