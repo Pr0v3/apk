@@ -45,6 +45,15 @@ export default function Index() {
     return () => unsubscribe();
   }, []);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (loadingTimeout) {
+        clearTimeout(loadingTimeout);
+      }
+    };
+  }, [loadingTimeout]);
+
   // Handle Android back button
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
