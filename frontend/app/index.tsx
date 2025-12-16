@@ -78,19 +78,6 @@ export default function Index() {
   const handleNavigationStateChange = (navState: any) => {
     setCanGoBack(navState.canGoBack);
     setCurrentUrl(navState.url);
-
-    // Check if navigation is to an allowed URL
-    if (!isUrlAllowed(navState.url)) {
-      // Block navigation to disallowed URLs
-      if (webViewRef.current) {
-        webViewRef.current.stopLoading();
-        Alert.alert(
-          'Restricted Access',
-          'Navigation to this URL is not allowed.',
-          [{ text: 'OK' }]
-        );
-      }
-    }
   };
 
   // Handle should start load - prevent loading unauthorized URLs
