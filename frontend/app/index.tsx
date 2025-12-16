@@ -62,9 +62,16 @@ export default function Index() {
 
   // Check if URL is allowed
   const isUrlAllowed = (url: string): boolean => {
-    return appConfig.allowedUrls.some(allowedUrl => 
-      url.startsWith(allowedUrl)
-    );
+    try {
+      const urlObj = new URL(url);
+      const baseUrlObj = new URL(appConfig.webViewUrl);
+      
+      // Allow navigation within the same domain (including all subpages and paths)
+      return urlObj.hostname === baseUrlObj.hostname || 
+             urlObj.hostname.endsWith('.' + baseUrlObj.hostname);
+    } catch (e) {
+      return false;
+    }
   };
 
   // Handle navigation state change
