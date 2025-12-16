@@ -100,12 +100,12 @@ export default function Index() {
       clearTimeout(loadingTimeout);
     }
     
-    // Set a timeout to force-stop loading after 30 seconds
+    // Set a timeout to force-stop loading after 15 seconds
     const timeout = setTimeout(() => {
       console.log('Loading timeout - forcing load complete');
       setIsLoading(false);
       setRefreshing(false);
-    }, 30000); // 30 seconds timeout
+    }, 15000); // 15 seconds timeout (reduced for better UX)
     
     setLoadingTimeout(timeout);
   };
