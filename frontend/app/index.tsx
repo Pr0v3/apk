@@ -240,15 +240,38 @@ export default function Index() {
         sharedCookiesEnabled={true}
         // Inject JavaScript to help detect when page is fully loaded
         injectedJavaScript={`
-          // Force trigger load complete event
-          window.addEventListener('load', function() {
-            console.log('Page fully loaded');
-          });
-          
-          // Additional check for readyState
-          if (document.readyState === 'complete') {
-            console.log('Document ready');
-          }
+          (function() {
+            // Force trigger load complete event
+            window.addEventListener('load', function() {
+              console.log('Page fully loaded');
+            });
+            
+            // Handle DOMContentLoaded for faster response
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM Content Loaded');
+              });
+            } else {
+              console.log('Document already loaded');
+            }
+            
+            // Handle single page apps that use AJAX/fetch
+            const originalFetch = window.fetch;
+            window.fetch = function(...args) {
+              return originalFetch.apply(this, args).finally(() => {
+                console.log('Fetch completed');
+              });
+            };
+            
+            // Override XMLHttpRequest for older AJAX calls
+            const originalOpen = XMLHttpRequest.prototype.open;
+            XMLHttpRequest.prototype.open = function() {
+              this.addEventListener('loadend', function() {
+                console.log('XHR completed');
+              });
+              return originalOpen.apply(this, arguments);
+            };
+          })();
           true;
         `}
       />
