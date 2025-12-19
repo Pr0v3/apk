@@ -17,10 +17,14 @@
     "preview": {
       "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "withoutCredentials": false
       },
       "ios": {
         "simulator": false
+      },
+      "env": {
+        "EXPO_NO_DOTENV": "1"
       }
     },
     "production": {
