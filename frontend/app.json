@@ -4,7 +4,6 @@
     "slug": "playme8-igaming",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
     "scheme": "playme8",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
